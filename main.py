@@ -1,4 +1,6 @@
 
+__version__ = "1.0"
+
 from kivy.app import App
 
 from kivy.uix.screenmanager import ScreenManager, Screen
