@@ -1,0 +1,162 @@
+#:import chex kivy.utils.get_color_from_hex
+
+
+MainWindow:
+	canvas.before:
+		Rectangle:
+			source : "quiz background.jpeg"
+			size : self.size
+			pos : self.pos
+
+<Test>:
+	size_hint : 1 , None
+	height : 600
+	orientation : "vertical"
+	spacing : dp(5)
+	padding : dp(10)
+	
+	canvas.before:
+		Color:
+			rgba : chex("#0091EA")
+		RoundedRectangle:
+			pos : self.pos
+			size : self.size
+			radius : (24,)
+	
+	
+	Label:
+		size_hint : 1 , 0.4
+		text : root.question
+		text_size : self.width - dp(10) , None
+		font_size : min(root.size) * 0.11
+		halign : "center"
+	
+	Button :
+		text : root.ans1
+		size_hint : 1 , 0.125
+		disabled : root.selections[0]
+		
+		on_release:
+			root.selectAnswer(0)
+	
+	Button :
+		text : root.ans2
+		size_hint : 1 , 0.125
+		disabled : root.selections[1]
+	
+		on_release:
+			root.selectAnswer(1)
+			
+	Button :
+		text : root.ans3
+		size_hint : 1 , 0.125
+		disabled : root.selections[2]
+		
+		on_release:
+			root.selectAnswer(2)
+			
+	
+	Button :
+		text : root.ans4
+		size_hint : 1 , 0.125
+		disabled : root.selections[3]
+		
+		on_release:
+			root.selectAnswer(3)
+	
+
+
+<Reviewer>:
+	holder : holder
+	
+	BoxLayout:
+		orientation : "vertical"
+		
+		BoxLayout:
+			size_hint : 1 , 0.1
+			padding : dp(10)
+			spacing : dp(5)
+			
+			Label:
+				canvas.before:
+					Color:
+						rgba : chex("#4CAF50")
+					RoundedRectangle:
+						pos : self.pos
+						size : self.size
+						radius : (24,)
+				text : root.correctText
+				font_size :  min(root.size) * 0.05
+			
+			Label:
+				canvas.before:
+					Color:
+						rgba : chex("#673AB7")
+					RoundedRectangle:
+						pos : self.pos
+						size : self.size
+						radius : (24,)
+				text : root.ratingText
+				font_size :  min(root.size) * 0.05
+		
+		ScrollView:
+			size_hint : 1, 0.82
+			
+			GridLayout:
+				id : holder
+				size_hint : 1 , None
+				height : self.minimum_height
+				cols : 1
+				padding : dp(20)
+				spacing : dp(10)
+				
+				Test:
+				
+				Test:
+				
+				Test:
+					
+				Test:
+				
+				Test:
+		
+		Button:
+			text : root.verText
+			size_hint : 0.9 , 0.08
+			pos_hint : { "center_x" : 0.5 }
+			font_size :  min(root.size) * 0.08
+			background_color : "green" if root.verText == "S U B M I T" else "red"
+			
+			on_release:
+				root.submit()
+
+<HomePage>:
+	FloatLayout:
+		
+		Label:
+			text : "Quiz App"
+			pos_hint : { "center_x" : 0.5 , "center_y" : 0.7 }
+			font_size :  min(root.size) * 0.2
+			
+		Button:
+			text : "S T A R T"
+			pos_hint : { "center_x" : 0.5 , "center_y" : 0.5 }
+			size_hint : 0.5 , 0.05
+			font_size :  min(root.size) * 0.05
+			background_color : "green"
+			
+			on_release:
+				root.parent.current = "test"
+			
+		Button:
+			text : "C L O S E"
+			pos_hint : { "center_x" : 0.5 , "center_y" : 0.42 }
+			size_hint : 0.5 , 0.05
+			font_size :  min(root.size) * 0.05
+			background_color : "red"
+			
+			on_release:
+				app.stop()
+			
+			
+			
