@@ -1,12 +1,14 @@
 
 __version__ = "1.0"
 
-from kivy.app import App
+from kivymd.app import MDApp
+from kivymd.uix.navigationdrawer import MDNavigationLayout, MDNavigationDrawer
 
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty, ListProperty, ObjectProperty, NumericProperty
 from kivy.lang.builder import Builder
+from kivy.core.text import LabelBase
 
 import random
 
@@ -112,14 +114,19 @@ class MainWindow(ScreenManager):
 	def on_kv_post(self , *args):
 		self.add_widget(HomePage(name = "home"))
 		self.add_widget(Reviewer(name="test"))
-		
+
+
+class NavigationWindowHolder(MDNavigationLayout):
+		pass
 		
 
-class QuizApp(App):
+class QuizApp(MDApp):
 	
 	def build(self):
 		return Builder.load_file("design.kv")
 
 
 if __name__ == "__main__":
+	LabelBase.register(name="title_font", fn_regular="Pangram-Bold.otf")
+	LabelBase.register(name="reg_font", fn_regular="Pangram-Regular.otf")
 	QuizApp().run()

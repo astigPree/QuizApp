@@ -1,12 +1,93 @@
 #:import chex kivy.utils.get_color_from_hex
 
-
-MainWindow:
+NavigationWindowHolder:
+	
+	nav_drawer : nav_drawer
+	
 	canvas.before:
 		Rectangle:
 			source : "quiz background.jpeg"
 			size : self.size
 			pos : self.pos
+	
+	MainWindow:
+		
+	MDNavigationDrawer:
+		id: nav_drawer
+		radius: (0, 16, 16, 0)
+		size_hint : 0.75 , 1
+		padding : dp(0)
+		md_bg_color :  chex("#5A5B63")
+		
+		MDScrollView:
+			MDBoxLayout:
+				adaptive_height : True
+				orientation : "vertical"
+				padding : dp(6)
+				
+				Widget:
+					size_hint  : 1 , None
+					height : dp(10)
+				CircleImage :
+					id : logo_displayer
+					size_hint  : 1 , None
+					height : dp(210)
+					
+				Widget:
+					size_hint  : 1 , None
+					height : min(root.size) * 0.1
+				Label:
+					size_hint  : 1 , None
+					text : "- DEVELOPER -"
+					halign : "center"
+					font_size : min(root.size) * 0.08
+					font_name : "title_font"
+					
+				Widget:
+					size_hint  : 1 , None
+					height : min(root.size) * 0.03
+				Label:
+					size_hint  : 1 , None
+					text : "Rubelyn M. Ricarte"
+					halign : "center"
+					font_size : min(root.size) * 0.05
+					font_name : "reg_font"
+				
+				Widget:
+					size_hint  : 1 , None
+					height : min(root.size) * 0.15
+				Label:
+					size_hint  : 1 , None
+					text : "- SKILLS -"
+					halign : "center"
+					font_size : min(root.size) * 0.08
+					font_name : "title_font"
+				Widget:
+					size_hint  : 1 , None
+					height : min(root.size) * 0.05
+				Label:
+					size_hint  : 1 , None
+					text : "Java\nAndroid Studio\nWeb Development\nAndroid Application"
+					halign : "center"
+					font_size : min(root.size) * 0.05
+					font_name : "reg_font"
+					text_size: self.width, None
+					height : self.texture_size[1]
+				
+
+
+<CircleImage@BoxLayout>:
+	orientation: 'vertical'
+	FloatLayout:
+		canvas:
+			Color:
+				rgb : 1,1,1
+			Ellipse:
+				pos: self.pos
+				size: self.size 
+				angle_start: 0
+				angle_end: 360
+				source: "account pic.jpg"
 
 <Test>:
 	size_hint : 1 , None
@@ -133,27 +214,40 @@ MainWindow:
 <HomePage>:
 	FloatLayout:
 		
-		Label:
-			text : "Quiz App"
-			pos_hint : { "center_x" : 0.5 , "center_y" : 0.7 }
-			font_size :  min(root.size) * 0.2
+		MDFloatingActionButton:
+			icon : "account-school"
+			pos_hint : { "x" : 0.05 , "center_y" : 0.95 }
+			icon_size : min(root.size) * 0.1
+			md_bg_color : chex("038A18")
 			
-		Button:
+			on_release:
+				root.parent.parent.nav_drawer.set_state("open")
+		
+		Label:
+			text : "MY PROGRAM\nQUIZ APP"
+			pos_hint : { "center_x" : 0.5 , "center_y" : 0.7 }
+			font_size :  min(root.size) * 0.13
+			halign : "center"
+			font_name : "title_font"
+			
+		MDRaisedButton:
 			text : "S T A R T"
 			pos_hint : { "center_x" : 0.5 , "center_y" : 0.5 }
 			size_hint : 0.5 , 0.05
 			font_size :  min(root.size) * 0.05
-			background_color : "green"
+			md_bg_color : chex("D27300")
+			font_name : "reg_font"
 			
 			on_release:
 				root.parent.current = "test"
 			
-		Button:
+		MDRaisedButton:
 			text : "C L O S E"
 			pos_hint : { "center_x" : 0.5 , "center_y" : 0.42 }
 			size_hint : 0.5 , 0.05
 			font_size :  min(root.size) * 0.05
-			background_color : "red"
+			md_bg_color : chex("B80D0D")
+			font_name : "reg_font"
 			
 			on_release:
 				app.stop()
