@@ -101,6 +101,9 @@ class Reviewer(Screen):
 class HomePage(Screen):
 	pass
 
+class DeveloperScreen(Screen):
+	pass
+
 class MainWindow(ScreenManager):
 	
 	sheet = [ 
@@ -114,6 +117,8 @@ class MainWindow(ScreenManager):
 	def on_kv_post(self , *args):
 		self.add_widget(HomePage(name = "home"))
 		self.add_widget(Reviewer(name="test"))
+		self.add_widget(DeveloperScreen(name="dev"))
+		
 
 
 class NavigationWindowHolder(MDNavigationLayout):

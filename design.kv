@@ -3,6 +3,7 @@
 NavigationWindowHolder:
 	
 	nav_drawer : nav_drawer
+	window : window
 	
 	canvas.before:
 		Rectangle:
@@ -11,6 +12,7 @@ NavigationWindowHolder:
 			pos : self.pos
 	
 	MainWindow:
+		id : window
 		
 	MDNavigationDrawer:
 		id: nav_drawer
@@ -36,45 +38,100 @@ NavigationWindowHolder:
 				Widget:
 					size_hint  : 1 , None
 					height : min(root.size) * 0.1
-				Label:
-					size_hint  : 1 , None
-					text : "- DEVELOPER -"
-					halign : "center"
-					font_size : min(root.size) * 0.08
-					font_name : "title_font"
+				MDRaisedButton:
+					text : "HOME"
+					size_hint : 1, min(root.size) * 0.05
+					font_size :  min(root.size) * 0.05
+					md_bg_color : chex("B80D0D")
+					font_name : "reg_font"
+					
+					on_release:
+						window.current = "home"
+						nav_drawer.set_state("close")
 					
 				Widget:
 					size_hint  : 1 , None
 					height : min(root.size) * 0.03
-				Label:
-					size_hint  : 1 , None
-					text : "Rubelyn M. Ricarte"
-					halign : "center"
-					font_size : min(root.size) * 0.05
+				MDRaisedButton:
+					text : "DEVELOPER"
+					size_hint : 1, min(root.size) * 0.05
+					font_size :  min(root.size) * 0.05
+					md_bg_color : chex("B80D0D")
 					font_name : "reg_font"
+					
+					on_release:
+						window.current = "dev"
+						nav_drawer.set_state("close")
+					
 				
-				Widget:
-					size_hint  : 1 , None
-					height : min(root.size) * 0.15
-				Label:
-					size_hint  : 1 , None
-					text : "- SKILLS -"
-					halign : "center"
-					font_size : min(root.size) * 0.08
-					font_name : "title_font"
-				Widget:
-					size_hint  : 1 , None
-					height : min(root.size) * 0.05
-				Label:
-					size_hint  : 1 , None
-					text : "Java\nAndroid Studio\nWeb Development\nAndroid Application"
-					halign : "center"
-					font_size : min(root.size) * 0.05
-					font_name : "reg_font"
-					text_size: self.width, None
-					height : self.texture_size[1]
 				
+			
+				
+<DeveloperScreen>:
+	FloatLayout:
+		
+		MDFloatingActionButton:
+			icon : "account-school-outline"
+			pos_hint : { "x" : 0.05 , "center_y" : 0.95 }
+			icon_size : min(root.size) * 0.1
+			md_bg_color : chex("038A18")
+			
+			on_release:
+				root.parent.parent.nav_drawer.set_state("open")
+		
+		
+		CircleImage:
+			size_hint : 0.65 , 0.25
+			pos_hint : { "center_x" : 0.5 , "top" : 0.85 }
+		
+		Information:
+			size_hint : 0.65, None
+			pos_hint : { "center_x" : 0.5 , "top" : 0.6 }
+		
 
+<Information@MDBoxLayout>:
+	adaptive_height: True
+	orientation: "vertical"
+	
+	
+	Widget:
+		size_hint  : 1 , None
+		height : min(root.size) * 0.1
+	Label:
+		size_hint  : 1 , None
+		text : "- DEVELOPER -"
+		halign : "center"
+		font_size : min(root.size) * 0.08
+		font_name : "title_font"
+	Widget:
+		size_hint  : 1 , None
+		height : min(root.size) * 0.03
+	Label:
+		size_hint  : 1 , None
+		text : "Rubelyn M. Ricarte"
+		halign : "center"
+		font_size : min(root.size) * 0.05
+		font_name : "reg_font"
+	Widget:
+		size_hint  : 1 , None
+		height : min(root.size) * 0.15
+	Label:
+		size_hint  : 1 , None
+		text : "- SKILLS -"
+		halign : "center"
+		font_size : min(root.size) * 0.08
+		font_name : "title_font"
+	Widget:
+		size_hint  : 1 , None
+		height : min(root.size) * 0.05
+	Label:
+		size_hint  : 1 , None
+		text : "Java\nAndroid Studio\nWeb Development\nAndroid Application"
+		halign : "center"
+		font_size : min(root.size) * 0.05
+		font_name : "reg_font"
+		text_size: self.width, None
+		height : self.texture_size[1]
 
 <CircleImage@BoxLayout>:
 	orientation: 'vertical'
