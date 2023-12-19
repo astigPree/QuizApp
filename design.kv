@@ -62,8 +62,43 @@ NavigationWindowHolder:
 					on_release:
 						window.current = "dev"
 						nav_drawer.set_state("close")
-					
 				
+				Widget:
+					size_hint  : 1 , None
+					height : min(root.size) * 0.03
+				MDRaisedButton:
+					text : "ABOUT"
+					size_hint : 1, min(root.size) * 0.05
+					font_size :  min(root.size) * 0.05
+					md_bg_color : chex("B80D0D")
+					font_name : "reg_font"
+					
+					on_release:
+						window.current = "about"
+						nav_drawer.set_state("close")
+					
+
+<AboutScreen>:
+	FloatLayout:
+		
+		MDFloatingActionButton:
+			icon : "account-school-outline"
+			pos_hint : { "x" : 0.05 , "center_y" : 0.95 }
+			icon_size : min(root.size) * 0.1
+			md_bg_color : chex("038A18")
+			
+			on_release:
+				root.parent.parent.nav_drawer.set_state("open")
+		
+		
+		Label:
+			size_hint  : 1 , 1
+			text : "PROGRAMMING QUIZ APP\n\nProgramming quizzes play a pivotal role in the learning and mastery of programming skills. Serving as effective assessment tools, these quizzes evaluate learners' comprehension of programming concepts and syntax, offering a rapid gauge of their understanding. Beyond assessment, regular quizzes contribute to information retention, reinforcing learning and consolidating knowledge in the learners' memory through the process of recall. This active engagement ensures a more profound understanding of the material, as active learning often proves more effective than passive methods. Additionally, quizzes serve as diagnostic tools by pinpointing areas of weakness or knowledge gaps, enabling learners to focus their efforts on specific topics that require further attention. The adaptability of quizzes to different skill levels ensures a personalized learning experience, catering to individuals with varying degrees of expertise."
+			halign : "center"
+			font_size : min(root.size) * 0.045
+			font_name : "reg_font"
+			text_size: self.width, None
+			height : self.texture_size[1]
 				
 			
 				
@@ -87,7 +122,7 @@ NavigationWindowHolder:
 		Information:
 			size_hint : 0.65, None
 			pos_hint : { "center_x" : 0.5 , "top" : 0.6 }
-		
+
 
 <Information@MDBoxLayout>:
 	adaptive_height: True

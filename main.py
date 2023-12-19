@@ -104,6 +104,10 @@ class HomePage(Screen):
 class DeveloperScreen(Screen):
 	pass
 
+class AboutScreen(Screen):
+	pass
+	
+
 class MainWindow(ScreenManager):
 	
 	sheet = [ 
@@ -118,6 +122,7 @@ class MainWindow(ScreenManager):
 		self.add_widget(HomePage(name = "home"))
 		self.add_widget(Reviewer(name="test"))
 		self.add_widget(DeveloperScreen(name="dev"))
+		self.add_widget(AboutScreen(name="about"))
 		
 
 
