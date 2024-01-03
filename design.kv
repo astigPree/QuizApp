@@ -181,9 +181,18 @@ NavigationWindowHolder:
 				angle_end: 360
 				source: "account pic.jpg"
 
+<SelectionButton@MDFillRoundFlatButton>:
+	size_hint : 0.2 , 1
+	md_bg_color : chex("#D27300") 
+	md_bg_color_disabled : chex("#038A18")
+
+<SelectionLabel@Label>:
+	size_hint : 0.8 , 1
+	font_name : "reg_font"
+
 <Test>:
 	size_hint : 1 , None
-	height : 600
+	height : 800
 	orientation : "vertical"
 	spacing : dp(5)
 	padding : dp(10)
@@ -201,76 +210,130 @@ NavigationWindowHolder:
 		size_hint : 1 , 0.4
 		text : root.question
 		text_size : self.width - dp(10) , None
-		font_size : min(root.size) * 0.11
+		font_size : min(root.size) * 0.10
 		halign : "center"
+		font_name : "reg_font"
+		canvas.before:
+			Color:
+				rgba : chex("#5A5B63")
+			RoundedRectangle:
+				pos : self.pos
+				size : self.size
+				radius : (min(self.size) * 0.1,)
 	
-	Button :
-		text : root.ans1
+	MDBoxLayout:
 		size_hint : 1 , 0.125
-		disabled : root.selections[0]
 		
-		on_release:
-			root.selectAnswer(0)
+		SelectionButton :
+			disabled : root.selections[0] 
+			on_release:
+				root.selectAnswer(0)
+		
+		SelectionLabel:
+			text_size : self.width - (min(root.size) * 0.15) , None
+			font_size : min(root.size) * 0.075
+			color : "white"  if root.selections[0] else "black"
+			text : root.ans1
 	
-	Button :
-		text : root.ans2
+	MDBoxLayout:
 		size_hint : 1 , 0.125
-		disabled : root.selections[1]
-	
-		on_release:
-			root.selectAnswer(1)
+		
+		SelectionButton :
+			disabled : root.selections[1]
+			on_release:
+				root.selectAnswer(1)
+		
+		SelectionLabel:
+			text_size : self.width - (min(root.size) * 0.15) , None
+			font_size : min(root.size) * 0.075
+			color : "white"  if root.selections[1] else "black"
+			text : root.ans2
 			
-	Button :
-		text : root.ans3
+	MDBoxLayout:
 		size_hint : 1 , 0.125
-		disabled : root.selections[2]
 		
-		on_release:
-			root.selectAnswer(2)
+		SelectionButton :
+			disabled : root.selections[2]	 
+			on_release:
+				root.selectAnswer(2)
+		
+		SelectionLabel:
+			text_size : self.width - (min(root.size) * 0.15) , None
+			font_size : min(root.size) * 0.075
+			color : "white"  if root.selections[2] else "black"
+			text : root.ans3
 			
-	
-	Button :
-		text : root.ans4
+	MDBoxLayout:
 		size_hint : 1 , 0.125
-		disabled : root.selections[3]
 		
-		on_release:
-			root.selectAnswer(3)
+		SelectionButton :
+			disabled : root.selections[3]
+			on_release:
+				root.selectAnswer(3)
+		
+		SelectionLabel:
+			text_size : self.width - (min(root.size) * 0.15) , None
+			font_size : min(root.size) * 0.075
+			color : "white"  if root.selections[3] else "black"
+			text : root.ans4
+			
 	
 
-
+<CorrectCircularView@MDFloatingActionButton>:
+	md_bg_color : "red"
+	size_hint : 0.2 , 1
+	
 <Reviewer>:
 	holder : holder
+	corrected_view : corrected_view
 	
 	BoxLayout:
 		orientation : "vertical"
+		spacing : dp(3)
 		
 		BoxLayout:
 			size_hint : 1 , 0.1
 			padding : dp(10)
 			spacing : dp(5)
 			
-			Label:
+			BoxLayout:
+				id : corrected_view
+				size_hint : 0.8 , 1
+				spacing : dp(5)
+				padding : dp(5)
 				canvas.before:
 					Color:
-						rgba : chex("#4CAF50")
+						rgba : chex("#5A5B63")
 					RoundedRectangle:
-						pos : self.pos
+						pos: self.pos
 						size : self.size
-						radius : (24,)
-				text : root.correctText
-				font_size :  min(root.size) * 0.05
-			
+						radius : (min(root.size) * 0.05,)
+				
+				CorrectCircularView:
+					
+				CorrectCircularView:
+					
+				CorrectCircularView:
+					
+				CorrectCircularView:
+					
+				CorrectCircularView:
+					
+				
 			Label:
-				canvas.before:
-					Color:
-						rgba : chex("#673AB7")
-					RoundedRectangle:
-						pos : self.pos
-						size : self.size
-						radius : (24,)
+				size_hint : 0.2 , 1
 				text : root.ratingText
-				font_size :  min(root.size) * 0.05
+				color : "black"
+				font_name : "title_font"
+				font_size : min(root.size) * 0.05
+				
+				canvas.before:
+					Color:
+						rgba : chex("#D27300")
+					RoundedRectangle:
+						pos : self.pos
+						size : self.size
+						radius : ( min(self.size) * 0.1 , )
 		
 		ScrollView:
 			size_hint : 1, 0.82
@@ -281,7 +344,7 @@ NavigationWindowHolder:
 				height : self.minimum_height
 				cols : 1
 				padding : dp(20)
-				spacing : dp(10)
+				spacing : dp(20)
 				
 				Test:
 				
@@ -293,18 +356,22 @@ NavigationWindowHolder:
 				
 				Test:
 		
-		Button:
-			text : root.verText
-			size_hint : 0.9 , 0.08
-			pos_hint : { "center_x" : 0.5 }
-			font_size :  min(root.size) * 0.08
-			background_color : "green" if root.verText == "S U B M I T" else "red"
+		BoxLayout:
+			padding : dp(5)
+			size_hint : 1 , 0.08
 			
-			on_release:
-				root.submit()
+			MDRaisedButton:
+				text : root.verText
+				size_hint : 1 , 1
+				font_name : "title_font"
+				font_size :  min(root.size) * 0.08
+				md_bg_color : "green" if root.verText == "S U B M I T" else "red"
+				
+				on_release:
+					root.submit()
 
 <HomePage>:
-	FloatLayout:
+	MDFloatLayout:
 		
 		MDFloatingActionButton:
 			icon : "account-school"
@@ -322,7 +389,7 @@ NavigationWindowHolder:
 			halign : "center"
 			font_name : "title_font"
 			
-		MDRaisedButton:
+		MDFillRoundFlatButton:
 			text : "S T A R T"
 			pos_hint : { "center_x" : 0.5 , "center_y" : 0.5 }
 			size_hint : 0.5 , 0.05
@@ -333,7 +400,7 @@ NavigationWindowHolder:
 			on_release:
 				root.parent.current = "test"
 			
-		MDRaisedButton:
+		MDFillRoundFlatButton:
 			text : "C L O S E"
 			pos_hint : { "center_x" : 0.5 , "center_y" : 0.42 }
 			size_hint : 0.5 , 0.05

@@ -3,6 +3,7 @@ __version__ = "1.0"
 
 from kivymd.app import MDApp
 from kivymd.uix.navigationdrawer import MDNavigationLayout, MDNavigationDrawer
+from kivymd.uix.boxlayout import MDBoxLayout
 
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
@@ -12,7 +13,7 @@ from kivy.core.text import LabelBase
 
 import random
 
-class Test(BoxLayout):
+class Test(MDBoxLayout):
 	question : str = StringProperty("")
 	ans1 : str = StringProperty("")
 	ans2 : str = StringProperty("")
@@ -59,7 +60,9 @@ class Reviewer(Screen):
 	verText : str = StringProperty("")
 	holder : BoxLayout = ObjectProperty(None)
 	
-	ratingText : str = StringProperty( "Ratings : 0%")
+	corrected_view : BoxLayout = ObjectProperty()
+	
+	ratingText : str = StringProperty( "0%")
 	correctText : str = StringProperty("Correct : 0")
 	
 	def on_pre_enter(self , *args):
@@ -74,12 +77,15 @@ class Reviewer(Screen):
 			child.ans4 = questions[i][1][3]
 			child.realAnswer = questions[i][2]
 	
+	def on_pre_leave(self , *args):
+		for child in self.corrected_view.children:
+				child.md_bg_color = "red"
+				self.ratingText = "0%"
 	
 	def submit(self):
 		if self.verText ==  "R E T U R N":
 			for child in self.holder.children:
 				child.reset()
-			self.ratingText = "Ratings : 0%"
 			self.correctText = "Correct : 0"
 			self.parent.current = "home"
 			return
@@ -87,14 +93,15 @@ class Reviewer(Screen):
 		score = 0
 		ratings = 0
 		
-		for child in self.holder.children:
+		for n , child in enumerate(self.holder.children):
 			child.checking()
 			score += child.score
 			if child.score :
 				ratings += 20
+				self.corrected_view.children[n].md_bg_color = "green"
 		
 		self.correctText = f"Correct : {score}"
-		self.ratingText = f"Ratings : {ratings}%"
+		self.ratingText = f"{ratings}%"
 		
 		self.verText = "R E T U R N"
 
